@@ -1,6 +1,6 @@
 const express = require("express"); // npm install express
 const path = require("path");
-const dotenv = require("dotenv");
+const dotenv = require("dotenv"); // 불러들이기
 
 dotenv.config(); // .env 안에 있는 GEMINI_API_KEY
 // process.env.GEMINI_API_KEY
@@ -30,6 +30,7 @@ app.post("/gemini", async (req, res) => {
     "Content-Type": "application/json",
   };
   const payload = {
+    //
     contents: [{ parts: [{ text: "오늘 저녁 메뉴 추천" }] }],
   };
   const response = await fetch(url, {
@@ -39,6 +40,7 @@ app.post("/gemini", async (req, res) => {
   });
   // 2. 라이브러리. (sdk)
   //   return res.json({ result: "ok" });
+  // 비슷해보인다? -> .candidates... -> 원하는 것만 선택해서 내보내거나...
   return res.json(await response.json());
 });
 

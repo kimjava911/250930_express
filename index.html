@@ -22,6 +22,12 @@
         });
         const data = await response.json();
         console.log(data);
+        // JS -> data. JSON. 객체 파싱만 하면...
+        // 화면에서 -> dom input -> value?
+        // 1. fetch -> body. wrapping 값 전달
+        // 2. library (fetch... -> 간결한 함수)
+        // 3. Dockerfile -> 인터넷에서 접속 링크.
+        console.log(data.candidates[0].content.parts[0].text);
       });
     </script>
   </body>

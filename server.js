@@ -9,6 +9,8 @@ dotenv.config(); // .env 안에 있는 GEMINI_API_KEY
 const app = express(); // 객체
 const port = 3000;
 
+app.use(express.json()); // post로 전달 받은 내용 중. body를 JSON화
+
 // Get -> Fetch, Get/Post
 app.get("/", (req, res) => {
   // localhost:3000/ -> GET/접속 (브라우저를 통한 접속)
@@ -19,6 +21,10 @@ app.get("/", (req, res) => {
 
 // ai -> fetch.
 app.post("/gemini", async (req, res) => {
+  // 1. app.use(express.json()) -> json 해석
+  // 2. fetch -> header - content-type json
+  console.log(req.body); // undefined -> ...
+  const { text } = req.body; // 구조분해할당
   // localhost:3000/gemini POST -> 응답
   // 1. fetch.
   const model = "gemini-2.5-flash-lite";
@@ -30,8 +36,8 @@ app.post("/gemini", async (req, res) => {
     "Content-Type": "application/json",
   };
   const payload = {
-    //
-    contents: [{ parts: [{ text: "오늘 저녁 메뉴 추천" }] }],
+    // contents: [{ parts: [{ text: "오늘 저녁 메뉴 추천" }] }],
+    contents: [{ parts: [{ text }] }],
   };
   const response = await fetch(url, {
     headers,
